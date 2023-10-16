@@ -14,3 +14,4 @@ matplotlib-inline==0.1.6
 py3Dmol==2.0.3
 numpy==1.21.6
 torch==2.0.1
+scipy==1.11.2
