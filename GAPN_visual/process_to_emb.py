@@ -164,6 +164,11 @@ def get_protein_info(pdb_file_path):
 def process_emb_main(pdb_file_path):
     
     all_chains_rep, residue_node_loc_list_all, ture_chain_name = get_protein_info(pdb_file_path)
+    
+
+    if not os.path.exists('multimer_info'):
+        os.makedirs('multimer_info')
+
     torch.save(all_chains_rep,'multimer_info/chain_rep.pt')
     torch.save(ture_chain_name,'multimer_info/true_chain_name.pt')
     torch.save(residue_node_loc_list_all,'multimer_info/coor_gt.pt')
