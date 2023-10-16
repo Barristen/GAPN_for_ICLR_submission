@@ -1,4 +1,4 @@
-biopandas 
+biopandas==0.4.1
 biopython==1.81
 jupyter-events==0.7.0
 jupyter-lsp==2.2.0
@@ -13,6 +13,7 @@ matplotlib==3.7.2
 matplotlib-inline==0.1.6
 py3Dmol==2.0.3
 numpy==1.21.6
-torch==2.0.1
-scipy==1.11.2
+torch==1.13.1
+scipy==1.7.3
+six==1.16.0
 tqdm==4.66.1
