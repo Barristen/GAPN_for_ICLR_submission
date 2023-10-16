@@ -1,6 +1,7 @@
 import numpy as np
 from biopandas.pdb import PandasPdb
 import torch
+import os
 from scipy.spatial.transform import Rotation
 def residue_type_pipr(residue):
 
