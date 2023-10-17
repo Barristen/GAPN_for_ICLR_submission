@@ -12,8 +12,8 @@ jupyterlab_server==2.24.0
 matplotlib==3.7.2
 matplotlib-inline==0.1.6
 py3Dmol==2.0.3
-numpy==1.21.6
 torch==1.13.1
 scipy==1.7.3
 six==1.16.0
 tqdm==4.66.1
+numpy==1.23.0
