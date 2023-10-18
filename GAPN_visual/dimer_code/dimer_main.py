@@ -127,8 +127,7 @@ def get_nodes_coors_numpy(filename, all_atoms=False):
 def dimer_main(pdb_path):
     chain_name = torch.load('multimer_info/true_chain_name.pt')
 
-    output_dir = '
-    GAPN_visual/dimer_set/'
+    output_dir = 'GAPN_visual/dimer_set/'
 
     ppdb = PandasPdb().read_pdb(pdb_path)
 
