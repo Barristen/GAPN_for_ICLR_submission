@@ -238,10 +238,6 @@ if __name__ == "__main__":
         pdb_df.df['ATOM'][['x_coord', 'y_coord', 'z_coord']] = df[['x_coord', 'y_coord', 'z_coord']]
         pdb_df.to_pdb(path=pdb_path[:-4]+'_pred.pdb', records=['ATOM'], gz=False)  
 
-        if st.download_button('Download Processed PDB File', path='temp.pdb', file_name='processed_pdb_file.pdb'):
-            st.write("File is being downloaded!")
-        if st.download_button('Download Processed PDB File', path='temp_pred.pdb', file_name='processed_pdb_file.pdb'):
-            st.write("File is being downloaded!")
 
         with open('temp_pred.pdb', 'rb') as f:
             file_content = f.read()
