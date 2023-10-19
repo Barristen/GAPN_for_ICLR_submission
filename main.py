@@ -36,6 +36,15 @@ def run_and_display_notebook(name):
         with open(name + ".nbconvert.ipynb", "r") as notebook_file:
             notebook_content = nbformat.read(notebook_file, as_version=4)
         
+        output_cells = []
+        for cell in notebook_content.cells:
+            if cell.cell_type == "code":
+                output_cell = copy.deepcopy(cell)  # Create a deep copy so as not to modify the original
+                output_cell.source = ""  # Remove the source code
+                output_cells.append(output_cell)
+            else:
+                output_cells.append(cell)
+        notebook_content.cells = output_cells
         # notebook_content.cells = [cell for cell in notebook_content.cells if cell.cell_type != "code"]
         # Create a new list to store the cells
 
