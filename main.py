@@ -30,7 +30,7 @@ def run_and_display_notebook(name):
     st.write("Running notebook...")
     try:
         # Run the notebook
-        subprocess.run(["jupyter", "nbconvert", "--to", "notebook", "--execute", name])
+        subprocess.run(["jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace",  name])
         
         # Read the executed notebook
         with open(name + ".nbconvert.ipynb", "r") as notebook_file:
