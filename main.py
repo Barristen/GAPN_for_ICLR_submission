@@ -146,7 +146,7 @@ class run_docking:
         # 归一化概率
         probabilities = inverse_values / np.sum(inverse_values)
 
-        # 按照概率取样索引
+        # 按照概率取样索
         return np.random.choice(len(arr), size=size, p=probabilities)
 
     def next_action(self,current_state,undocking_state,global_state):
@@ -371,13 +371,8 @@ if __name__ == "__main__":
                 return docking_path,all_coor_list_gt,all_coor_list,r_list,t_list
         
             def sample_indices(self,arr, size=1):
-                # 反转数组值作为概率的基础
-                inverse_values = 1 / (arr + 1)  # 这里+1是为了避免除以0的情况，根据实际情况调整
-        
-                # 归一化概率
+                inverse_values = 1 / (arr + 1)  
                 probabilities = inverse_values / np.sum(inverse_values)
-        
-                # 按照概率取样索引
                 return np.random.choice(len(arr), size=size, p=probabilities)
         
             def next_action(self,current_state,undocking_state,global_state):
