@@ -234,6 +234,12 @@ if __name__ == "__main__":
         if st.download_button('Download Processed PDB File', path='temp_pred.pdb', file_name='processed_pdb_file.pdb'):
             st.write("File is being downloaded!")
 
+        with open('temp_pred.pdb', 'rb') as f:
+            file_content = f.read()
+
+        # 提供一个下载按钮
+        if st.download_button('Download Processed PDB File', file_content, file_name='processed_pdb_file.pdb'):
+            st.write("File is being downloaded!")
 
         code_string = """
         import os
