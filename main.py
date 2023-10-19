@@ -468,9 +468,8 @@ if __name__ == "__main__":
             st.code(code_string, language='python')
         else:
             # 用户没点击前只显示部分代码块（例如前5行）
-            st.code("\n".join(code_string.split("\n")[:5]), language='python'
+            st.code("\n".join(code_string.split("\n")[:5]), language='python')
 
-        
         st.write("原始结构可视化：")
         run_and_display_notebook('show')  
 
