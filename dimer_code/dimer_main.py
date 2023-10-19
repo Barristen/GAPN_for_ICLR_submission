@@ -132,32 +132,28 @@ def dimer_main(pdb_path):
     ppdb = PandasPdb().read_pdb(pdb_path)
 
     df = ppdb.df['ATOM']
+
+    coor_gt_list = torch.load('multimer_info/coor_gt.pt') 
+
     all_combine = list(itertools.combinations(chain_name,2))
     for sing_com in tqdm(all_combine):
-        chain_1_df_atom = df[df['chain_id'].isin([sing_com[0]])]
-        chain_2_df_atom = df[df['chain_id'].isin([sing_com[1]])]
-        
-
-        unbound_predic_ligand, \
-        unbound_predic_receptor, \
-        bound_ligand_repres_nodes_loc_clean_array,\
-        bound_receptor_repres_nodes_loc_clean_array = preprocess_unbound_bound(
-            get_residues(chain_1_df_atom), get_residues(chain_2_df_atom),
-            graph_nodes='residues', pos_cutoff=8, inference=True)
-
+        bound_ligand_repres_nodes_loc_clean_array = coor_gt_list[chain_name.index(sing_com[0])][0]
+        bound_receptor_repres_nodes_loc_clean_array = coor_gt_list[chain_name.index(sing_com[1])][0]
         ligand_receptor_distance = spa.distance.cdist(bound_ligand_repres_nodes_loc_clean_array, bound_receptor_repres_nodes_loc_clean_array)
-
-        if np.where(ligand_receptor_distance < 8)[0].shape[0] < ligand_receptor_distance.shape[0] * ligand_receptor_distance.shape[1] * 0.01 * 0.01:
+        if np.where(ligand_receptor_distance < 8)[0].shape[0] < ligand_receptor_distance.shape[0] * ligand_receptor_distance.shape[1] * 0.02 * 0.01:
+            # print('extract')
             protein_1_ca_coor = bound_ligand_repres_nodes_loc_clean_array
-            protein_2_ca_coor = bound_receptor_repres_nodes_loc_clean_array            
-
-            interface_num = int(0.05 * min(protein_2_ca_coor.shape[0],protein_1_ca_coor.shape[0])) + 2
-
-            r,t = find_rigid_alignment(torch.tensor(protein_1_ca_coor[:interface_num,:]),torch.tensor(protein_2_ca_coor[:interface_num,:]))
-            
-            protein_1_ca_coor = ((r @ bound_ligand_repres_nodes_loc_clean_array.T).T + t).numpy()
             protein_2_ca_coor = bound_receptor_repres_nodes_loc_clean_array
+            a1 = protein_1_ca_coor[np.where(protein_1_ca_coor[:,0] == protein_1_ca_coor[:,0].max())[0],:]
+            a2 = protein_2_ca_coor[np.where(protein_2_ca_coor[:,0] == protein_2_ca_coor[:,0].max())[0],:]
+            if a1.shape[0]>1:
+                a1 = a1[0,:]
+            if a2.shape[0]>1:
+                a2 = a2[0,:]
+            t_fast = a1 - a2
+            protein_2_ca_coor = protein_2_ca_coor + t_fast
         else:
+            # print('extract')
             protein_1_ca_coor = bound_ligand_repres_nodes_loc_clean_array
             protein_2_ca_coor = bound_receptor_repres_nodes_loc_clean_array
 
@@ -167,6 +163,5 @@ def dimer_main(pdb_path):
         coor_pair_list.append(protein_1_ca_coor)
         coor_pair_list.append(protein_2_ca_coor)
         final_pair_name = output_dir + sing_com[0] + '_' + sing_com[1] + '.npy'
-        np.save(final_pair_name,np.array(coor_pair_list))
-
+        np.save(final_pair_name,np.array(coor_pair_list,dtype=object))
 
