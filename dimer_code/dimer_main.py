@@ -163,5 +163,5 @@ def dimer_main(pdb_path):
         coor_pair_list.append(protein_1_ca_coor)
         coor_pair_list.append(protein_2_ca_coor)
         final_pair_name = output_dir + sing_com[0] + '_' + sing_com[1] + '.npy'
-        np.save(final_pair_name,np.array(coor_pair_list,dtype=object))
+        np.save(final_pair_name,np.array(coor_pair_list))
 
