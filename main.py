@@ -54,7 +54,7 @@ def run_and_display_notebook(name):
         html_output, _ = html_exporter.from_notebook_node(notebook_content)
         
         # Display the HTML content in Streamlit
-        st.components.v1.html(html_output, width=800, height=800)
+        st.components.v1.html(html_output, width=800, height=600)
 
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
