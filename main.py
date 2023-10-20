@@ -33,7 +33,7 @@ def run_and_display_notebook(name):
         subprocess.run(["jupyter", "--execute", "--inplace",  name])
 
         # Read the executed notebook
-        with open(name + ".nbconvert.ipynb", "r") as notebook_file:
+        with open(name + ".ipynb", "r") as notebook_file:
             notebook_content = nbformat.read(notebook_file, as_version=4)
         
         output_cells = []
